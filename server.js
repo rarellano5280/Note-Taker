@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 3001;
 //Allows me to use the public folder and the assets within it.
 app.use(express.static('public'));
 
+//Middleware 
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
+
 //On page load or ('/') I want it it to default to the index.html fle
 app.get('/', (req, res) => 
     res.sendFile(path.join(__dirname, 'public/index.html'))
@@ -21,6 +25,11 @@ app.get('/', (req, res) =>
 app.get('/notes', (req, res) => 
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
+
+//WHEN I enter a new note title and the note’s text
+//THEN a Save icon appears in the navigation at the top of the page
+//WHEN I click on the Save icon
+//THEN the new note I have entered is saved and appears in the left-hand column with the other existing notes
 
 
 
