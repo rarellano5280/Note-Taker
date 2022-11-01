@@ -2,6 +2,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path')
+const dbFile = require('./db/db.json')
 
 //Express set up. 
 const app = express();
@@ -30,8 +31,28 @@ app.get('/notes', (req, res) =>
 //THEN a Save icon appears in the navigation at the top of the page
 //WHEN I click on the Save icon
 //THEN the new note I have entered is saved and appears in the left-hand column with the other existing notes
+app.route('/api/notes')
+.get((req, res) => {
+    res.json(dbFile);
+})
 
+.post((req, res) => {
+    let jsonPath = path.join(__dirname, '/db/db.json')
+    let newestNote = req.body;
 
+    dbFile.push(newestNote)
+
+    fs.writeFile(jsonPath, JSON.stringify(dbFile), function (err) {
+        if(err) {
+            return console.log(err);
+        } else {
+            console.log("Your newest note was saved! ");
+        } 
+    });
+
+    res.json(newestNote);
+
+})
 
 app.listen(PORT, () => 
     console.log(`App listening at http://localhost:${PORT}`)
