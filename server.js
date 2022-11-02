@@ -1,4 +1,4 @@
-//Depend
+//Dependencies
 const express = require('express');
 const fs = require('fs');
 const path = require('path')
@@ -6,7 +6,7 @@ const dbFile = require('./db/db.json')
 
 //Express set up. 
 const app = express();
-
+//This assigns my port to 3001
 const PORT = process.env.PORT || 3001;
 
 //Allows me to use the public folder and the assets within it.
@@ -40,6 +40,17 @@ app.route('/api/notes')
     let jsonPath = path.join(__dirname, '/db/db.json')
     let newestNote = req.body;
 
+ //WHEN I click on an existing note in the list in the left-hand column
+// THEN that note appears in the right-hand column
+    let oldestNote = 99;
+    for (let i = 0; i < dbFile.length; i++) {
+        let individualNote = dbFile[i];
+
+    if(individualNote.id > oldestNote) {
+        oldestNote = individualNote.id;
+     }
+    }
+    newestNote.id = oldestNote + 1;
     dbFile.push(newestNote)
 
     fs.writeFile(jsonPath, JSON.stringify(dbFile), function (err) {
@@ -49,11 +60,10 @@ app.route('/api/notes')
             console.log("Your newest note was saved! ");
         } 
     });
-
     res.json(newestNote);
+});
 
-})
-
+// Allosw my app to listen at the specified PORT.
 app.listen(PORT, () => 
     console.log(`App listening at http://localhost:${PORT}`)
 );
