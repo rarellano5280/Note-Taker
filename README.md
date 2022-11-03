@@ -6,7 +6,7 @@
 1. [Description](#description)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Herokue](#heroku-deployment)
+4. [Heroku](#heroku-deployment)
 5. [Screenshot](#Screenshot)
 6. [License](#license)
 7. [Contact Me](#contact-me)
