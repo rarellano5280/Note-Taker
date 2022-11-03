@@ -63,7 +63,7 @@ app.route('/api/notes')
     res.json(newestNote);
 });
 
-// Allosw my app to listen at the specified PORT.
+// Allows my app to listen at the specified PORT.
 app.listen(PORT, () => 
     console.log(`App listening at http://localhost:${PORT}`)
 );
